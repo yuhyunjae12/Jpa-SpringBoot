@@ -1,6 +1,8 @@
 package com.study.jpa;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -9,12 +11,14 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 /**
  * 도메인 엔티티 선언
@@ -24,6 +28,7 @@ import lombok.RequiredArgsConstructor;
  */
 @Entity
 @Getter
+@Setter
 @RequiredArgsConstructor
 public class Account {
 
@@ -45,6 +50,9 @@ public class Account {
 	
 	private final String password;
 	
+	@OneToMany(mappedBy = "owner")
+	private Set<Study> studies = new HashSet<Study>();
+	
 	/**
 	 * @Temporal(TemporalType.TIMESTAMP)
 	 * 날짜 포멧 설정
@@ -64,5 +72,15 @@ public class Account {
 		@AttributeOverride(name = "street", column = @Column(name = "home_street"))
 	})
 	private Address address;
+
+	public void addStudy(Study study) {
+		this.getStudies().add(study);
+		study.setOwner(this);
+	}
+	
+	public void removeStudy(Study study) {
+		this.getStudies().remove(study);
+		study.setOwner(null);
+	}
 	
 }

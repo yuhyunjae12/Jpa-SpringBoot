@@ -3,7 +3,8 @@ package com.study.jpa;
 import java.util.Date;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;import javax.persistence.Transient;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Transient;
 
 import org.hibernate.Session;
 import org.springframework.boot.ApplicationArguments;
@@ -22,7 +23,16 @@ public class JpaRunner implements ApplicationRunner{
 	public void run(ApplicationArguments args) throws Exception {
 		Account account = new Account("hyun","pass", new Date());
 		//entityManager.persist(account);
+//		Study study = new Study("Spring Jpa", account);
+		Study study = new Study("Spring Jpa");
+		
+//		account.getStudies().add(study);
+//		study.setOwner(account);
+		
+		account.addStudy(study);
+		
 		Session session = entityManager.unwrap(Session.class);
 		session.save(account);
+		session.save(study);
 	}
 }
