@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -22,7 +23,7 @@ public class Post {
 	
 	private String title;
 	
-	@OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private Set<Comment> comments = new HashSet<Comment>();
 	
 	public void addComment (Comment comment) {
