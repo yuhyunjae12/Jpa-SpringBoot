@@ -12,10 +12,12 @@ import javax.persistence.OneToMany;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
+@ToString(of = {"id", "title"})
 public class Post {
 
 	@Id @GeneratedValue
