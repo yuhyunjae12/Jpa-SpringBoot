@@ -22,27 +22,27 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
-public class JpaApplicationTests {
+public class MemberServiceTest {
 
 	@Autowired MemberRepository memberRepository;
 	@Autowired MemberService memberService;
 	// qurey문 출력
 	@Autowired EntityManager em;
 	
-//	@Test(expected = IllegalStateException.class)
-//	public void 중복_회원_예외() throws Exception{
-//		//given
-//		Member member1 = new Member();
-//		member1.setName("kim");
-//		
-//		Member member2 = new Member();
-//		member2.setName("kim");
-//		//when
-//		memberService.Join(member1);
-//		memberService.Join(member2); // 예외가 발생 해야 한다!!
-//		//then
-//		fail("예외가 발생해야 한다.");
-//	}
+	@Test(expected = IllegalStateException.class)
+	public void 중복_회원_예외() throws Exception{
+		//given
+		Member member1 = new Member();
+		member1.setName("kim");
+		
+		Member member2 = new Member();
+		member2.setName("kim");
+		//when
+		memberService.Join(member1);
+		memberService.Join(member2); // 예외가 발생 해야 한다!!
+		//then
+		fail("예외가 발생해야 한다.");
+	}
 
 	@Test
 	//@Rollback(false)
